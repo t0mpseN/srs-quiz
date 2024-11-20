@@ -6,188 +6,178 @@
     "Balance": 2,
     "Interval": 86400000,
     "EF": 2.5,
-    "LastReviewed": 1732081230917,
-    "NextReview": 1732167630917
+    "LastReviewed": 1732082501697,
+    "NextReview": 1732168901697
   },
   {
     "Word": "川",
     "Meaning": "river, stream",
     "Reading": "かわ",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081244638,
-    "NextReview": 1732167644638
+    "LastReviewed": 1732082425383,
+    "NextReview": 1732082485383
   },
   {
     "Word": "手",
     "Meaning": "hand",
     "Reading": "て",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081253716,
-    "NextReview": 1732167653716
+    "LastReviewed": 1732082427918,
+    "NextReview": 1732082487918
   },
   {
     "Word": "戸",
     "Meaning": "door, shutter",
     "Reading": "と",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081260561,
-    "NextReview": 1732167660561
+    "LastReviewed": 1732082431373,
+    "NextReview": 1732082491373
   },
   {
     "Word": "眼鏡",
     "Meaning": "glasses, judgment",
     "Reading": "めがね",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081284515,
-    "NextReview": 1732167684515
-  },
-  {
-    "Word": "煙草",
-    "Meaning": "tobacco, cigarette, cigar",
-    "Reading": "たばこ",
-    "Balance": 2,
-    "Interval": 86400000,
-    "EF": 2.5,
-    "LastReviewed": 1732081288764,
-    "NextReview": 1732167688764
+    "LastReviewed": 1732082436365,
+    "NextReview": 1732082496365
   },
   {
     "Word": "赤",
     "Meaning": "red, crimson, scarlet",
     "Reading": "あか",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081291860,
-    "NextReview": 1732167691860
+    "LastReviewed": 1732082445245,
+    "NextReview": 1732082505245
   },
   {
     "Word": "仕事",
     "Meaning": "work, job",
     "Reading": "しごと",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081298814,
-    "NextReview": 1732167698814
+    "LastReviewed": 1732082447546,
+    "NextReview": 1732082507546
   },
   {
     "Word": "問題",
     "Meaning": "problem, question",
     "Reading": "もんだい",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081301540,
-    "NextReview": 1732167701540
+    "LastReviewed": 1732082453624,
+    "NextReview": 1732082513624
   },
   {
     "Word": "部屋",
     "Meaning": "room",
     "Reading": "へや",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081303844,
-    "NextReview": 1732167703844
+    "LastReviewed": 1732082456134,
+    "NextReview": 1732082516134
   },
   {
     "Word": "子供",
     "Meaning": "child, kid",
     "Reading": "こども",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081306296,
-    "NextReview": 1732167706296
+    "LastReviewed": 1732082458902,
+    "NextReview": 1732082518902
   },
   {
     "Word": "時間",
     "Meaning": "time, hour",
     "Reading": "じかん",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081308687,
-    "NextReview": 1732167708687
+    "LastReviewed": 1732082463097,
+    "NextReview": 1732082523097
   },
   {
     "Word": "雨",
     "Meaning": "rain",
     "Reading": "あめ",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 1,
+    "Interval": 60000,
     "EF": 2.5,
-    "LastReviewed": 1732081311148,
-    "NextReview": 1732167711148
+    "LastReviewed": 1732082469236,
+    "NextReview": 1732082529236
   },
   {
     "Word": "先生",
     "Meaning": "teacher",
     "Reading": "せんせい",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 30000,
     "EF": 2.5,
-    "LastReviewed": 1732081313735,
-    "NextReview": 1732167713735
+    "LastReviewed": 1732082473436,
+    "NextReview": 1732082503436
   },
   {
     "Word": "年",
     "Meaning": "year",
     "Reading": "とし",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 30000,
     "EF": 2.5,
-    "LastReviewed": 1732081316262,
-    "NextReview": 1732167716262
+    "LastReviewed": 1732082498659,
+    "NextReview": 1732082528659
   },
   {
     "Word": "手紙",
     "Meaning": "letter",
     "Reading": "てがみ",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732081318857,
-    "NextReview": 1732167718857
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "電話",
     "Meaning": "telephone, phone call",
     "Reading": "でんわ",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732081321828,
-    "NextReview": 1732167721828
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "水",
     "Meaning": "water",
     "Reading": "みず",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732081325001,
-    "NextReview": 1732167725001
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "病気",
     "Meaning": "illness",
     "Reading": "びょうき",
-    "Balance": 1,
-    "Interval": 60000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732081294760,
-    "NextReview": 1732081354760
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "会社",

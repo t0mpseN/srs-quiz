@@ -82,9 +82,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         let selectedIndices = [fullDeck.indexOf(todaysReviewCards[0])];
     
         for (let i = 0; i < 3; i++) {
-            let randomAlternative = getRandomObjects(fullDeck, selectedIndices);
+            let randomAlternative = getRandomObjects(todaysReviewCards, selectedIndices);
             while (randomAlternative === questionData[0]) {
-                randomAlternative = getRandomObjects(fullDeck, selectedIndices);
+                randomAlternative = getRandomObjects(todaysReviewCards, selectedIndices);
             }
             questionData.push(randomAlternative);
         }
