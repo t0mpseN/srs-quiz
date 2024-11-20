@@ -1,10 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    document.getElementById('backButton').addEventListener('click', () => {
+        window.location.href = '/decks.html';
+    });
     if (!await checkAuth()) return;
     console.log("DOM fully loaded!");
     
     async function checkAuth() {
         try {
-            const response = await fetch('http://192.168.1.27:3000/check-auth', {
+            const response = await fetch(`http://192.168.1.27:3000/check-auth`, {
                 credentials: 'include'
             });
             const data = await response.json();
@@ -23,9 +26,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function readDeck() {
         try {
-            const response = await fetch('http://192.168.1.27:3000/deck', {
+            const currentDeck = localStorage.getItem('currentDeck');
+            if (!currentDeck) {
+                window.location.href = '/decks.html';
+                return { dailyReviews: [], fullDeck: [] };
+            }
+    
+            const response = await fetch(`http://192.168.1.27:3000/deck/${currentDeck}`, {
                 credentials: 'include'
             });
+            
             if (response.status === 401) {
                 window.location.href = '/login.html';
                 return { dailyReviews: [], fullDeck: [] };
@@ -33,6 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
+            
             const data = await response.json();
             return {
                 dailyReviews: data.dailyReviews,
@@ -122,13 +133,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function deleteCard(word) {
         try {
+            const currentDeck = localStorage.getItem('currentDeck');
             const confirmation = confirm(`Are you sure you want to delete the card "${word}"?`);
             
             if (!confirmation) {
                 return;
             }
     
-            const response = await fetch('http://192.168.1.27:3000/deleteCard', {
+            const response = await fetch(`http://192.168.1.27:3000/deleteCard/${currentDeck}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -152,8 +164,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     async function updateDeck(word, isCorrect) {
         try {
-            const response = await fetch('http://192.168.1.27:3000/deck', {
-                credentials: 'include',
+            const currentDeck = localStorage.getItem('currentDeck');
+            const response = await fetch(`http://192.168.1.27:3000/deck/${currentDeck}`, {
+                credentials: 'include'
             });
             const deckData = await response.json();
             const deck = deckData.fullDeck
@@ -198,7 +211,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             deck[wordIndex].NextReview = currentTime + deck[wordIndex].Interval;
     
             try {
-                const saveResponse = await fetch('http://192.168.1.27:3000/updateDeck', {
+                const saveResponse = await fetch(`http://192.168.1.27:3000/updateDeck/${currentDeck}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
@@ -213,7 +226,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             } catch (saveError) {
                 console.error("Error saving deck:", saveError);
             }
-    
         } catch (error) {
             console.error("Error updating deck from server:", error);
         }
@@ -285,6 +297,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         deleteBtn.addEventListener('click', () => {
             deleteCard(questionData[0].Word);
             newWordsNumber--;
+        });
+
+        const backButton = document.createElement('button');
+        backButton.className = 'delete-btn';
+        backButton.style.marginTop = '20px';
+        backButton.addEventListener('click', () => {
+            window.location.href = '/decks.html';
         });
 
         // Add the reading and word to the question element

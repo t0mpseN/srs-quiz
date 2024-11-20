@@ -131,7 +131,41 @@
                 color: #666;
                 margin-bottom: 5px;
             }
+            .back-arrow {
+                position: fixed;
+                top: 15px;
+                left: 15px;
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 8px;
+                width: auto;
+                min-height: auto;
+                margin: 0;
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: opacity 0.3s ease;
+            }
 
+            .back-arrow:hover {
+                opacity: 0.7;
+                background-color: transparent;
+            }
+            .content {
+                padding-top: 40px;
+            }
+
+            /* Make sure the button is easily tappable on mobile */
+            @media (max-width: 768px) {
+                .back-arrow {
+                    padding: 12px;
+                    font-size: 28px; /* Slightly larger on mobile for better touch targets */
+                }
+            }
             /* Make the question more specific */
             #question,
             #question div,
@@ -142,6 +176,7 @@
         </style>
     </head>
     <body>
+        <button class="back-arrow" id="backButton">←</button>
         <div class="content">
             <h1 id="question" class="finished-message" style="font-family: 'JetBrains Mono', monospace !important;"></h1>
             <button id="alternative1"></button>

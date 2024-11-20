@@ -146,8 +146,11 @@
                     button.addEventListener('click', () => {
                         localStorage.setItem('currentDeck', deck.name);
                         window.location.href = '/index.html';
+                        const storedDeck = localStorage.getItem('currentDeck');
+                        console.log('Verified deck in localStorage:', storedDeck);   
+                        window.location.href = '/index.html';
                     });
-                    
+
                     container.appendChild(button);
                 });
             } catch (error) {
