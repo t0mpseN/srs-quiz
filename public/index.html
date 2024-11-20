@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SRS QUIZ</title>
+        <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        <style>
+            * {
+                font-family: 'JetBrains Mono', monospace !important;
+            }
+
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: auto;
+            }
+           
+            body {
+                background-color: black;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding: 15px;
+                box-sizing: border-box;
+                min-height: 100vh;
+            }
+           
+            .content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                width: 100%;
+                max-width: min(800px, 95vw);
+            }
+            
+            button {
+                background-color: #333;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                margin: 5px;
+                font-size: clamp(16px, 4vw, 25px);
+                cursor: pointer;
+                width: 100%;
+                max-width: min(800px, 95vw);
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+                white-space: normal;
+                word-wrap: break-word;
+                height: auto;
+                min-height: 44px;
+            }
+            
+            button:hover {
+                background-color: #444;
+            }
+           
+            button:disabled {
+                cursor: default;
+                opacity: 0.7;
+            }
+
+            .delete-btn {
+                background-color: black;
+                color: #FF6B6B;
+                border: 2px solid #FF6B6B;
+                width: auto;
+                padding: 5px 15px;
+                font-size: clamp(16px, 3vw, 20px);
+                margin-top: 10px;
+            }
+           
+            .delete-btn:hover {
+                background-color: rgba(255, 107, 107, 0.1);
+            }
+            
+            h1, h5 {
+                margin: 0;
+                font-size: clamp(16px, 4vw, 20px);
+            }
+            
+            .finished-message {
+                font-size: clamp(2rem, 8vw, 5rem);
+                color: #ffffff;
+                animation: fadeIn 0.5s ease-in;
+            }
+            
+            #question.finished-message {
+                font-size: clamp(2.5rem, 10vw, 5rem);
+                margin-bottom: 20px;
+                word-wrap: break-word;
+                max-width: 100%;
+            }
+
+            /* Specific targeting for the question element */
+            #question, 
+            #question.finished-message,
+            #question * {
+                font-family: 'JetBrains Mono', monospace !important;
+            }
+
+            .stats-container {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .review-count {
+                color: #FF6B6B;
+            }
+            
+            .new-count {
+                color: #4ECB71;
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            .reading-text {
+                font-family: 'JetBrains Mono', monospace !important;
+                font-size: 2rem;
+                color: #666;
+                margin-bottom: 5px;
+            }
+
+            /* Make the question more specific */
+            #question,
+            #question div,
+            #question span,
+            .reading-text {
+                font-family: 'JetBrains Mono', monospace !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <h1 id="question" class="finished-message" style="font-family: 'JetBrains Mono', monospace !important;"></h1>
+            <button id="alternative1"></button>
+            <button id="alternative2"></button>
+            <button id="alternative3"></button>
+            <button id="alternative4"></button>
+            <div class="stats-container">
+                <h5 id="reviewWords" class="review-count"></h5>
+                <h5 id="newWords" class="new-count"></h5>
+            </div>
+            <button id="deleteCard" class="delete-btn">Delete Card</button>
+        </div>
+        <script>
+            // Add this before your main.js to ensure the font is applied even if content is dynamically updated
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.target.id === 'question') {
+                        mutation.target.style.fontFamily = "'JetBrains Mono', monospace";
+                    }
+                });
+            });
+
+            // Start observing the question element for changes
+            observer.observe(document.getElementById('question'), {
+                characterData: true,
+                childList: true,
+                subtree: true
+            });
+        </script>
+        <script src="main.js" defer></script>
+    </body>
+</html>
