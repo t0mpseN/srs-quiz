@@ -1,153 +1,313 @@
 [
   {
+    "Word": "one",
+    "Meaning": "一",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "two",
+    "Meaning": "二",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "three",
+    "Meaning": "三",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "four",
+    "Meaning": "四",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "five",
+    "Meaning": "五",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "six",
+    "Meaning": "六",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "seven",
+    "Meaning": "七",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "eight",
+    "Meaning": "八",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "nine",
+    "Meaning": "九",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "ten",
+    "Meaning": "十",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "mouth",
+    "Meaning": "口",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "day",
+    "Meaning": "日",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "month",
+    "Meaning": "月",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "rice field",
+    "Meaning": "田",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "eye",
+    "Meaning": "目",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
+    "Word": "old",
+    "Meaning": "古",
+    "Reading": "",
+    "Balance": 0,
+    "Interval": 0,
+    "EF": 2.5,
+    "LastReviewed": 0,
+    "NextReview": 0
+  },
+  {
     "Word": "I",
     "Meaning": "吾",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093224536,
-    "NextReview": 1732179624536
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "risk",
     "Meaning": "冒",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093231263,
-    "NextReview": 1732179631263
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "companion",
     "Meaning": "朋",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093234144,
-    "NextReview": 1732179634144
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "bright",
     "Meaning": "明",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093240642,
-    "NextReview": 1732179640642
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "chant",
     "Meaning": "唱",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093243646,
-    "NextReview": 1732179643646
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "sparkle",
     "Meaning": "晶",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093252738,
-    "NextReview": 1732179652738
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "goods",
     "Meaning": "品",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093256087,
-    "NextReview": 1732179656087
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "spine",
     "Meaning": "呂",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093259921,
-    "NextReview": 1732179659921
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "prosperous",
     "Meaning": "昌",
     "Reading": "",
-    "Balance": 1,
-    "Interval": 60000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093228261,
-    "NextReview": 1732093288261
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "early",
     "Meaning": "早",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093280184,
-    "NextReview": 1732179680184
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "rising sun",
     "Meaning": "旭",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093286600,
-    "NextReview": 1732179686600
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "generation",
     "Meaning": "世",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093290186,
-    "NextReview": 1732179690186
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "stomach",
     "Meaning": "胃",
     "Reading": "",
-    "Balance": 2,
-    "Interval": 86400000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093294436,
-    "NextReview": 1732179694436
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "nightbreak",
     "Meaning": "旦",
     "Reading": "",
-    "Balance": 1,
-    "Interval": 60000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093196987,
-    "NextReview": 1732093256987
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "gall bladder",
     "Meaning": "胆",
     "Reading": "",
-    "Balance": 1,
-    "Interval": 60000,
+    "Balance": 0,
+    "Interval": 0,
     "EF": 2.5,
-    "LastReviewed": 1732093203323,
-    "NextReview": 1732093263323
+    "LastReviewed": 0,
+    "NextReview": 0
   },
   {
     "Word": "span",

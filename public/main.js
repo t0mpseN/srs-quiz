@@ -88,18 +88,26 @@ document.addEventListener("DOMContentLoaded", async () => {
             buttons.forEach(button => button.style.display = 'none');
             return [[], []];
         }
-    
+     
         let questionData = [todaysReviewCards[0]];
         let selectedIndices = [fullDeck.indexOf(todaysReviewCards[0])];
-    
-        for (let i = 0; i < 3; i++) {
-            let randomAlternative = getRandomObjects(todaysReviewCards, selectedIndices);
-            while (randomAlternative === questionData[0]) {
-                randomAlternative = getRandomObjects(todaysReviewCards, selectedIndices);
+        
+        let attempts = 0;
+        const maxAttempts = 20;
+        
+        while (questionData.length < 4 && attempts < maxAttempts) {
+            try {
+                let randomAlternative = getRandomObjects(fullDeck, selectedIndices);
+                if (!questionData.includes(randomAlternative)) {
+                    questionData.push(randomAlternative);
+                }
+            } catch (error) {
+                console.warn("Not enough unique cards available for alternatives");
+                break;
             }
-            questionData.push(randomAlternative);
+            attempts++;
         }
-    
+     
         return [todaysReviewCards, questionData];
     }
     

@@ -46,7 +46,7 @@
                 border: none;
                 padding: 10px 20px;
                 margin: 5px;
-                font-size: clamp(16px, 4vw, 25px);
+                font-size: clamp(24px, 5vw, 26px);
                 cursor: pointer;
                 width: 100%;
                 max-width: min(800px, 95vw);
@@ -83,7 +83,7 @@
             
             h1, h5 {
                 margin: 0;
-                font-size: clamp(16px, 4vw, 20px);
+                font-size: clamp(12px, 4vw, 18px);
             }
             
             .finished-message {
@@ -100,7 +100,10 @@
             }
 
             /* Specific targeting for the question element */
-            #question, 
+            #question {
+                font-size: clamp(26px, 6vw, 30px); /* Decreased from finished-message size */
+                font-feature-settings: "palt"; /* Better Japanese text rendering */
+            } 
             #question.finished-message,
             #question * {
                 font-family: 'JetBrains Mono', monospace !important;
@@ -126,8 +129,9 @@
                 to { opacity: 1; }
             }
             .reading-text {
-                font-family: 'JetBrains Mono', monospace !important;
-                font-size: 2rem;
+                font-size: clamp(20px, 5vw, 24px); /* Decreased from 2rem */
+                font-feature-settings: "palt";
+                -webkit-font-smoothing: antialiased;
                 color: #666;
                 margin-bottom: 5px;
             }
@@ -172,6 +176,11 @@
             #question span,
             .reading-text {
                 font-family: 'JetBrains Mono', monospace !important;
+            }
+            *, *::before, *::after {
+                font-family: 'JetBrains Mono', monospace !important;
+                -webkit-font-smoothing: antialiased;
+                font-feature-settings: "palt";
             }
         </style>
     </head>
