@@ -212,7 +212,12 @@ app.get('/', (req, res) => {
 // Login endpoint
 app.post('/login', (req, res) => {
     const { password } = req.body;
+    console.log('Received password:', password);  // See what password was sent
+    
     const hashedPassword = crypto.createHash('sha256').update(password).digest('hex');
+    console.log('Generated hash:', hashedPassword);  // See what hash was generated
+    console.log('Stored hash:', PASSWORD_HASH);  // See what hash is stored
+    console.log('Match?:', hashedPassword === PASSWORD_HASH);  // See if they match
     
     if (hashedPassword === PASSWORD_HASH) {
         req.session.authenticated = true;
