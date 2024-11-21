@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     async function checkAuth() {
         try {
-            const response = await fetch(`http://192.168.1.27:3000/check-auth`, {
+            const response = await fetch(`/check-auth`, {
                 credentials: 'include'
             });
             const data = await response.json();
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return { dailyReviews: [], fullDeck: [] };
             }
     
-            const response = await fetch(`http://192.168.1.27:3000/deck/${currentDeck}`, {
+            const response = await fetch(`/deck/${currentDeck}`, {
                 credentials: 'include'
             });
             
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return;
             }
     
-            const response = await fetch(`http://192.168.1.27:3000/deleteCard/${currentDeck}`, {
+            const response = await fetch(`/deleteCard/${currentDeck}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     async function updateDeck(word, isCorrect) {
         try {
             const currentDeck = localStorage.getItem('currentDeck');
-            const response = await fetch(`http://192.168.1.27:3000/deck/${currentDeck}`, {
+            const response = await fetch(`/deck/${currentDeck}`, {
                 credentials: 'include'
             });
             const deckData = await response.json();
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             deck[wordIndex].NextReview = currentTime + deck[wordIndex].Interval;
     
             try {
-                const saveResponse = await fetch(`http://192.168.1.27:3000/updateDeck/${currentDeck}`, {
+                const saveResponse = await fetch(`/updateDeck/${currentDeck}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',

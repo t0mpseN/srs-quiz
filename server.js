@@ -6,7 +6,7 @@ const session = require('express-session');
 const crypto = require('crypto');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const PUBLIC_PATH = path.join(__dirname, 'public');
 const DECKS_PATH = path.join(__dirname, 'decks');
 const DAILY_TRACK_PATH = path.join(__dirname, 'public/daily_track.json');
@@ -22,7 +22,7 @@ if (!fs.existsSync(DECKS_PATH)) {
 }
 
 app.use(cors({
-    origin: 'http://192.168.1.27:3000',
+    origin: true,  // Allow all origins
     credentials: true
 }));
 
@@ -368,5 +368,5 @@ app.get('/check-auth', (req, res) => {
 
 
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on http://192.168.1.27:${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
