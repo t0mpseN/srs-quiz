@@ -11,8 +11,8 @@ def substitute_json_files(root_folder):
         root_folder (str): The root folder containing both 'public' and 'default' folders
     """
     # Construct paths for public and default folders
-    public_folder = os.path.join(root_folder, 'srs-quiz-main/decks')
-    default_folder = os.path.join(root_folder, 'srs-quiz-main/default')
+    public_folder = os.path.join(root_folder, 'srs-quiz/decks')
+    default_folder = os.path.join(root_folder, 'srs-quiz/default')
     
     # Verify folders exist
     if not os.path.exists(public_folder):
