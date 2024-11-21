@@ -36,10 +36,25 @@
             max-width: min(400px, 95vw);
         }
 
-        h1 {
-            text-align: center;
+        .title-container {
+            position: relative;
             margin-bottom: 2rem;
-            font-size: clamp(24px, 6vw, 32px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 200px;  /* Adjust size as needed */
+            height: 200px; /* Adjust size as needed */
+        }
+
+        h1 {
+            position: absolute;
+            font-size: clamp(32px, 8vw, 40px);
+            margin: 0;
+            z-index: 1;  /* This makes the text appear on top of the image */
+            transform: translateY(40%)
         }
 
         .input-group {
@@ -84,7 +99,10 @@
 </head>
 <body>
     <div class="login-container">
-        <h1>SRS QUIZ</h1>
+        <div class="title-container">
+            <img src="/logo.png" alt="SRS Quiz Logo" class="logo-img">
+            <h1>SRS QUIZ</h1>
+        </div>
         <form id="loginForm">
             <div class="input-group">
                 <input type="password" id="password" placeholder="Password" required autocomplete="current-password">

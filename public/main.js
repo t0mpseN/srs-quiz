@@ -240,7 +240,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     
     let values = await GetCards();
-    let reviewCardsSorted = values[0];
     let questionData = values[1];
 
     let fullDeck = (await readDeck()).fullDeck;

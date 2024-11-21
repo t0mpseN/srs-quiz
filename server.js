@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const crypto = require('crypto');
-
+const archiver = require('archiver');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const PUBLIC_PATH = path.join(__dirname, 'public');
@@ -35,41 +35,6 @@ app.use(session({
 
 app.use(express.json({ limit: '10mb' }));
 //app.use(express.static(path.join(__dirname, 'public')));
-
-
-
-function getDecksInfo() {
-    const decksPath = DECKS_PATH;
-    const files = fs.readdirSync(decksPath).filter(file => 
-        file.endsWith('.json') && 
-        !['daily_track.json', 'session.json'].includes(file)
-    );
-    
-    const decksInfo = files.map(file => {
-        const deckPath = path.join(decksPath, file);
-        const deckData = JSON.parse(fs.readFileSync(deckPath, 'utf8'));
-        const name = file.replace('.json', '');
-        
-        // Calculate review and new cards counts
-        const timeNow = Date.now();
-        const reviews = deckData.filter(card => 
-            card.NextReview > 0 && 
-            card.NextReview <= timeNow
-        ).length;
-        
-        const newCards = deckData.filter(card => 
-            card.NextReview === 0
-        ).length;
-        
-        return {
-            name,
-            reviews,
-            new: newCards
-        };
-    });
-    
-    return decksInfo;
-}
 
 function getSafeDeckId(deckName) {
     // Convert deck name to a safe string for use as an object key
@@ -105,20 +70,13 @@ function getDailyReviews(deck, deckName) {
 
     const today = new Date().toDateString();
     if (dailyTrack.date !== today) {
-        dailyTrack = {
-            date: today,
-            decks: {}
-        };
+        dailyTrack = initializeDailyTrack();
     }
 
     // Use safe deck ID for object access
     const safeDeckId = getSafeDeckId(deckName);
     
     // Initialize deck tracking if it doesn't exist
-    if (!dailyTrack.decks) {
-        dailyTrack.decks = {};
-    }
-    
     if (!dailyTrack.decks[safeDeckId]) {
         dailyTrack.decks[safeDeckId] = {
             name: deckName,  // Store original name for reference
@@ -143,16 +101,21 @@ function getDailyReviews(deck, deckName) {
         return learningCards;
     }
 
-    // If no learning cards, get new cards (with deck-specific limit)
-    const remainingNewCardSlots = Math.max(0, 20 - dailyTrack.decks[safeDeckId].newCardsReviewed);
-    const newCards = deck.filter(card => card.NextReview === 0)
-                        .slice(0, remainingNewCardSlots);
+    // Check how many new cards have been reviewed today
+    const newCardsReviewedToday = dailyTrack.decks[safeDeckId].newCardsReviewed || 0;
     
-    if (newCards.length > 0) {
-        return newCards;
+    // If we haven't hit the daily limit, get new cards
+    if (newCardsReviewedToday < 20) {
+        const remainingNewCardSlots = 20 - newCardsReviewedToday;
+        const newCards = deck.filter(card => card.NextReview === 0)
+                            .slice(0, remainingNewCardSlots);
+        
+        if (newCards.length > 0) {
+            return newCards;
+        }
     }
 
-    // If no new cards, get review cards (Balance >= 2)
+    // If no new cards or hit daily limit, get review cards (Balance >= 2)
     const reviewCards = deck.filter(card => 
         card.Balance >= 2 && 
         card.NextReview <= timeNow && 
@@ -227,22 +190,46 @@ app.post('/login', (req, res) => {
     }
 });
 
-// Middleware to check if user is authenticated
-const checkAuth = (req, res, next) => {
-    if (req.session.authenticated) {
-        next();
-    } else {
-        res.status(401).json({ message: 'Unauthorized' });
-    }
-};
-
 app.get('/decks', (req, res) => {
     try {
         const files = fs.readdirSync(DECKS_PATH).filter(file => file.endsWith('.json'));
+
+        // Read daily tracking data
+        let dailyTrack;
+        try {
+            dailyTrack = JSON.parse(fs.readFileSync(DAILY_TRACK_PATH, 'utf8'));
+            // Reset daily track if it's a new day
+            if (dailyTrack.date !== new Date().toDateString()) {
+                dailyTrack = {
+                    date: new Date().toDateString(),
+                    decks: {}
+                };
+                fs.writeFileSync(DAILY_TRACK_PATH, JSON.stringify(dailyTrack), 'utf8');
+            }
+        } catch {
+            dailyTrack = {
+                date: new Date().toDateString(),
+                decks: {}
+            };
+            fs.writeFileSync(DAILY_TRACK_PATH, JSON.stringify(dailyTrack), 'utf8');
+        }
+
         const decksInfo = files.map(file => {
             const deckPath = path.join(DECKS_PATH, file);
             const deckData = JSON.parse(fs.readFileSync(deckPath, 'utf8'));
             const name = file.replace('.json', '');
+            const safeDeckId = getSafeDeckId(name);
+            
+            // Get daily tracking for this deck
+            if (!dailyTrack.decks[safeDeckId]) {
+                dailyTrack.decks[safeDeckId] = {
+                    name: name,
+                    newCardsReviewed: 0
+                };
+            }
+
+            const newCardsReviewedToday = dailyTrack.decks[safeDeckId].newCardsReviewed || 0;
+            const remainingNewCards = Math.max(0, 20 - newCardsReviewedToday);
             
             // Calculate reviews and new cards
             const timeNow = Date.now();
@@ -251,14 +238,17 @@ app.get('/decks', (req, res) => {
                 card.NextReview <= timeNow
             ).length;
             
-            const newCards = deckData.filter(card => 
+            // Count total new cards, but only show what's available today
+            const totalNewCards = deckData.filter(card => 
                 card.NextReview === 0
             ).length;
+
+            const availableNewCards = Math.min(totalNewCards, remainingNewCards);
             
             return {
                 name,
                 reviews,
-                new: newCards
+                new: availableNewCards
             };
         });
         
@@ -291,20 +281,32 @@ app.post('/updateDeck/:deckName', (req, res) => {
     const updatedFullDeck = req.body;
     const deckPath = path.join(DECKS_PATH, `${req.params.deckName}.json`);
     
-    let dailyTrack = JSON.parse(fs.readFileSync(DAILY_TRACK_PATH, 'utf8'));
-    let session = JSON.parse(fs.readFileSync(SESSION_PATH, 'utf8'));
+    let dailyTrack;
+    try {
+        dailyTrack = JSON.parse(fs.readFileSync(DAILY_TRACK_PATH, 'utf8'));
+    } catch {
+        dailyTrack = initializeDailyTrack();
+    }
+
+    let session;
+    try {
+        session = JSON.parse(fs.readFileSync(SESSION_PATH, 'utf8'));
+    } catch {
+        session = initializeSession();
+    }
+
     const today = new Date().toDateString();
     
     if (dailyTrack.date !== today) {
-        dailyTrack = {
-            date: today,
-            decks: {}
-        };
+        dailyTrack = initializeDailyTrack();
     }
 
+    const safeDeckId = getSafeDeckId(req.params.deckName);
+
     // Initialize deck tracking if it doesn't exist
-    if (!dailyTrack.decks[req.params.deckName]) {
-        dailyTrack.decks[req.params.deckName] = {
+    if (!dailyTrack.decks[safeDeckId]) {
+        dailyTrack.decks[safeDeckId] = {
+            name: req.params.deckName,
             newCardsReviewed: 0
         };
     }
@@ -318,44 +320,90 @@ app.post('/updateDeck/:deckName', (req, res) => {
 
         if (updatedCard) {
             if (!session.reviewedCards.includes(updatedCard.Word)) {
-                if (updatedCard.LastReviewed !== 0 && updatedCard.NextReview !== 0) {
-                    dailyTrack.decks[req.params.deckName].newCardsReviewed++;
+                // Only increment counter for new cards (NextReview was 0)
+                const oldCard = currentDeck.find(card => card.Word === updatedCard.Word);
+                if (oldCard && oldCard.NextReview === 0) {
+                    dailyTrack.decks[safeDeckId].newCardsReviewed++;
                 }
                 session.reviewedCards.push(updatedCard.Word);
             }
             
-            fs.writeFileSync(DAILY_TRACK_PATH, JSON.stringify(dailyTrack), 'utf8');
-            fs.writeFileSync(SESSION_PATH, JSON.stringify(session), 'utf8');
+            fs.writeFileSync(DAILY_TRACK_PATH, JSON.stringify(dailyTrack, null, 2), 'utf8');
+            fs.writeFileSync(SESSION_PATH, JSON.stringify(session, null, 2), 'utf8');
             createBackup();
         }
-    } catch (error) {
-        console.error("Error updating session:", error);
-    }
-    
-    fs.writeFile(deckPath, JSON.stringify(updatedFullDeck, null, 2), 'utf8', (err) => {
-        if (err) {
-            console.error(`Error saving ${req.params.deckName}.json:`, err);
-            return res.status(500).send("Failed to update deck.");
-        }
+
+        fs.writeFileSync(deckPath, JSON.stringify(updatedFullDeck, null, 2), 'utf8');
         res.status(200).send("Deck updated successfully.");
-    });
+    } catch (error) {
+        console.error("Error updating deck:", error);
+        res.status(500).send("Failed to update deck");
+    }
 });
 
 
 app.post('/deleteCard/:deckName', (req, res) => {
     const { word } = req.body;
-    const deckPath = path.join(DECKS_PATH, `${req.params.deckName}.json`);
+    const deckName = req.params.deckName;
+    const deckPath = path.join(DECKS_PATH, `${deckName}.json`);
 
     try {
+        // Read and find index in original deck
         const deck = JSON.parse(fs.readFileSync(deckPath, 'utf8'));
-        const updatedDeck = deck.filter(card => card.Word !== word);
-        fs.writeFileSync(deckPath, JSON.stringify(updatedDeck, null, 2), 'utf8');
+        const indexToDelete = deck.findIndex(card => card.Word === word);
+        
+        if (indexToDelete === -1) {
+            throw new Error("Card not found");
+        }
+
+        // Remove card from original deck
+        deck.splice(indexToDelete, 1);
+        fs.writeFileSync(deckPath, JSON.stringify(deck, null, 2), 'utf8');
+
+        // Handle corresponding deck deletion
+        let correspondingDeckName;
+        if (deckName.includes('(Reverse)')) {
+            correspondingDeckName = deckName.replace(' (Reverse)', '');
+        } else {
+            correspondingDeckName = `${deckName} (Reverse)`;
+        }
+
+        const correspondingDeckPath = path.join(DECKS_PATH, `${correspondingDeckName}.json`);
+        
+        if (fs.existsSync(correspondingDeckPath)) {
+            const correspondingDeck = JSON.parse(fs.readFileSync(correspondingDeckPath, 'utf8'));
+            // Remove card at the same index from corresponding deck
+            correspondingDeck.splice(indexToDelete, 1);
+            fs.writeFileSync(correspondingDeckPath, JSON.stringify(correspondingDeck, null, 2), 'utf8');
+        }
+
         res.status(200).send("Card deleted successfully");
     } catch (error) {
         console.error("Error deleting card:", error);
         res.status(500).send("Failed to delete card");
     }
 });
+
+app.get('/backup', (req, res) => {
+    const archive = archiver('zip', {
+        zlib: { level: 9 } // Maximum compression
+    });
+
+    const date = new Date().toISOString().split('T')[0];
+    const filename = `decks-backup-${date}.zip`;
+    // Set the headers for zip download
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+
+    // Pipe archive data to the response
+    archive.pipe(res);
+
+    // Add the entire decks directory to the archive
+    archive.directory(DECKS_PATH, 'decks');
+
+    archive.finalize();
+});
+
 
 // Logout endpoint
 app.post('/logout', (req, res) => {
